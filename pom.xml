@@ -26,9 +26,9 @@
 	</properties>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.sshtools</groupId>
+	<groupId>org.aksw.thirdparty.com.sshtools</groupId>
 	<artifactId>vfs2nio</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1-1</version>
 	<name>Vfs2Nio</name>
 	<description>Library that bridges Commons VFS 2 to Java's NIO.2 virtual file system</description>
 	<url>http://www.sshtools.com</url>
@@ -86,6 +86,77 @@
 					</plugin>
 				</plugins>
 			</build>
+			</profile>
+	
+		<profile>
+			<id>release-aksw</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+	
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.amashchenko.maven.plugin</groupId>
+						<artifactId>gitflow-maven-plugin</artifactId>
+						<version>1.9.0</version>
+						<configuration>
+							<gitFlowConfig>
+								<versionTagPrefix>v</versionTagPrefix>
+								<developmentBranch>release-aksw</developmentBranch>
+							</gitFlowConfig>
+						</configuration>
+					</plugin>
+	
+	
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+								<configuration>
+									<keyname>AKSW</keyname>
+									<passphraseServerId>${gpg.keyname}</passphraseServerId>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+	
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.8</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+	
+				</plugins>
+			</build>
+	
+			<distributionManagement>
+				<repository>
+					<id>ossrh</id>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+				<snapshotRepository>
+					<id>maven.aksw.snapshots</id>
+					<name>AKSW Snapshot Repository</name>
+					<url>http://maven.aksw.org/archiva/repository/snapshots</url>
+				</snapshotRepository>
+			</distributionManagement>
 		</profile>
 	</profiles>
 
@@ -248,6 +319,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
 </project>
 
 
