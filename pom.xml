@@ -106,6 +106,7 @@
 						<configuration>
 							<gitFlowConfig>
 								<versionTagPrefix>v</versionTagPrefix>
+								<developmentBranch>release-aksw</developmentBranch>
 							</gitFlowConfig>
 						</configuration>
 					</plugin>
