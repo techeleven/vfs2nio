@@ -1,5 +1,5 @@
 /**
- * Copyright © 2018 - 2018 SSHTOOLS Limited (support@sshtools.com)
+ * Copyright © 2018 - 2021 SSHTOOLS Limited (support@sshtools.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,6 +79,11 @@ public class Vfs2NioFileSystemProvider extends FileSystemProvider {
 	public void checkAccess(Path path, AccessMode... modes) throws IOException {
 		Vfs2NioPath p = toVFSPath(path);
 		FileObject fo = p.toFileObject();
+		
+		if (modes.length == 0) {
+			modes = new AccessMode[] { AccessMode.READ };
+		}
+		
 		for (AccessMode m : modes) {
 			switch (m) {
 			case EXECUTE:
