@@ -115,7 +115,8 @@ public class Vfs2NioFileSystem extends BaseFileSystem<Vfs2NioPath, Vfs2NioFileSy
 		FileObject[] children = obj.getChildren();
 		
 		String[] baseNames = getPathSegments(path);
-		
+		int childNameIdx = baseNames.length;
+
 		return new Iterator<Path>() {
 			int index;
 
@@ -127,13 +128,14 @@ public class Vfs2NioFileSystem extends BaseFileSystem<Vfs2NioPath, Vfs2NioFileSy
 			@Override
 			public Path next() {
 				Path croot = path.getRoot();
+//				Broken code:
 //				Path f = path.getFileName();
 //				return new Vfs2NioPath(Vfs2NioFileSystem.this, croot.toString(),
 //						(f == null ? "" : f.toString() + "/") + children[index++].getName().getBaseName().toString());
 
-				int childNameIdx = baseNames.length;
 				String[] childNames = Arrays.copyOf(baseNames, childNameIdx + 1);
-				childNames[childNameIdx] = children[index++].getName().getBaseName().toString();
+				childNames[childNameIdx] = children[index].getName().getBaseName().toString();
+				++index;
 				
 				return new Vfs2NioPath(Vfs2NioFileSystem.this, croot.toString(), childNames);
 			}
