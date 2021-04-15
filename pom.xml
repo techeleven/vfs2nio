@@ -26,7 +26,7 @@
 	</properties>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.sshtools</groupId>
+	<groupId>org.aksw.thirdparty.com.sshtools</groupId>
 	<artifactId>vfs2nio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Vfs2Nio</name>
