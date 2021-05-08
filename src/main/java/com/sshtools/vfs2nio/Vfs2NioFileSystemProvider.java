@@ -221,7 +221,7 @@ public class Vfs2NioFileSystemProvider extends FileSystemProvider {
 		FileObject fileObject = vfsPath.toFileObject();
 		RandomAccessContent content = fileObject.getContent().getRandomAccessContent(accessMode);
 
-		return new Vfs2NioFileChannel(content);
+		return new FileChannelFromSeekableByteChannelImpl(new Vfs2NioSeekableByteChannel(content));
 		// return new Vfs2NioFileChannel(vfsPath, accessMode);
 	}
 
