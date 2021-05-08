@@ -55,7 +55,9 @@ import org.apache.commons.vfs2.FileObject;
 import org.apache.commons.vfs2.FileSystemException;
 import org.apache.commons.vfs2.FileSystemManager;
 import org.apache.commons.vfs2.FileSystemOptions;
+import org.apache.commons.vfs2.RandomAccessContent;
 import org.apache.commons.vfs2.VFS;
+import org.apache.commons.vfs2.util.RandomAccessMode;
 
 public class Vfs2NioFileSystemProvider extends FileSystemProvider {
 	public final static String FILE_SYSTEM_OPTIONS = "com.sshtools.vfs2nio.fileSystemOptions";
@@ -211,8 +213,16 @@ public class Vfs2NioFileSystemProvider extends FileSystemProvider {
 
 	@Override
 	public FileChannel newFileChannel(Path path, Set<? extends OpenOption> options, FileAttribute<?>... attrs) throws IOException {
-		// TODO
-		throw new UnsupportedOperationException();
+		RandomAccessMode accessMode = options.contains(StandardOpenOption.WRITE)
+				? RandomAccessMode.READWRITE
+				: RandomAccessMode.READ;
+
+		Vfs2NioPath vfsPath = toVFSPath(path);
+		FileObject fileObject = vfsPath.toFileObject();
+		RandomAccessContent content = fileObject.getContent().getRandomAccessContent(accessMode);
+
+		return new Vfs2NioFileChannel(content);
+		// return new Vfs2NioFileChannel(vfsPath, accessMode);
 	}
 
 	@Override
