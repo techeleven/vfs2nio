@@ -57,6 +57,10 @@ public class Vfs2NioFileSystem extends BaseFileSystem<Vfs2NioPath, Vfs2NioFileSy
 	public Vfs2NioFileAttributes getFileAttributes(Vfs2NioPath path) {
 		return new Vfs2NioFileAttributes(pathToFileObject(path));
 	}
+	
+	public URI getUri() {
+		return uri;
+	}
 
 	public FileObject getRoot() {
 		return root;

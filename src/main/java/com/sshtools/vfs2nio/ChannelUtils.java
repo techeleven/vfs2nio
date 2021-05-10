@@ -33,6 +33,8 @@ public class ChannelUtils {
 
 	public static int read(SeekableByteChannel src, ByteBuffer dst, long position) throws IOException {
 		long posBackup = src.position();
+		src.position(position);
+
 		int result = src.read(dst);
 		src.position(posBackup);
 		return result;
@@ -40,6 +42,8 @@ public class ChannelUtils {
 
 	public static int write(SeekableByteChannel dst, ByteBuffer src, long position) throws IOException {
 		long posBackup = dst.position();
+		dst.position(position);
+
 		int result = dst.write(src);
 		dst.position(posBackup);
 		return result;
