@@ -89,7 +89,7 @@
 			</profile>
 	
 		<profile>
-			<id>release-aksw</id>
+			<id>aksw-release</id>
 			<activation>
 				<property>
 					<name>performRelease</name>
@@ -106,11 +106,12 @@
 						<configuration>
 							<gitFlowConfig>
 								<versionTagPrefix>v</versionTagPrefix>
-								<developmentBranch>release-aksw</developmentBranch>
+								<developmentBranch>aksw-develop</developmentBranch>
+								<productionBranch>aksw-master</productionBranch>
 							</gitFlowConfig>
 						</configuration>
 					</plugin>
-	
+
 	
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
