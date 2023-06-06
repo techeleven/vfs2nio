@@ -18,10 +18,11 @@ import java.nio.file.spi.FileSystemProvider;
 import com.sshtools.vfs2nio.Vfs2NioFileSystemProvider;
 
 module com.sshtools.vfs2nio {
+    requires rt;
     requires transitive commons.vfs2;
     /* requires static jsch; */
-    requires transitive com.sshtools.sshapi.commonsvfs;
-    requires transitive com.sshtools.sshapi.core;
+    //requires transitive com.sshtools.sshapi.commonsvfs;
+    //requires transitive com.sshtools.sshapi.core;
     requires static org.apache.commons.compress;
     provides FileSystemProvider with Vfs2NioFileSystemProvider;
     exports com.sshtools.vfs2nio;
